@@ -19,7 +19,7 @@ public class ProvaLatency {
 			 long startTime = System.nanoTime();
 			 
 			 // Perform operation:
-			 perform_operation(2000);
+			 perform_operation_random_duration();
 			 
 			 // Record operation latency:
 			 myOpStats.recordLatency(System.nanoTime() - startTime);
@@ -29,8 +29,8 @@ public class ProvaLatency {
 		 // Later, report on stats collected:
 		 Histogram intervalHistogram = myOpStats.getIntervalHistogram();
 		 
-		 System.out.println(" max : "+intervalHistogram.getMaxValue());
-		 System.out.println(" Min : "+intervalHistogram.getMinValue());
+		 System.out.println(" max : "+intervalHistogram.getMaxValue()/1000000);
+		 System.out.println(" Min : "+intervalHistogram.getMinValue()/1000000);
 		 System.out.println(" mean : "+intervalHistogram.getMean());
 		
 	}
@@ -38,6 +38,18 @@ public class ProvaLatency {
 	public static void perform_operation(long durationMsec){
 		try {
 			System.out.println(" - performing operation");
+			Thread.sleep(durationMsec);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void perform_operation_random_duration(){
+		long minimum = 500;
+		long maximum = 5000;
+		long durationMsec = minimum + (int)(Math.random() * (maximum-minimum));
+		try {
+			System.out.println(" - performing operation [ theoretical duration : "+durationMsec+" ms ]");
 			Thread.sleep(durationMsec);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
