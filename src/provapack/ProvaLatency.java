@@ -7,11 +7,13 @@ import org.HdrHistogram.Histogram;
 public class ProvaLatency {
 	public static void main(String[] args){
 		
+		int n_ops  = 10;
+		
 		LatencyStats myOpStats = new LatencyStats();
 		
 		// During normal operation, record all operation latencies into a LatencyStats instance:
 
-		 for(int i = 0; i < 10; i++){
+		 for(int i = 0; i < n_ops; i++){
 			 
 			 // take start time
 			 long startTime = System.nanoTime();
